@@ -170,43 +170,83 @@ navigator.mediaDevices.getUserMedia({video:{facingMode:"user"}})
 
 async function kirim(){
 
-  const nama = document.getElementById("nama").value;
+  const nama   = document.getElementById("nama").value;
   const status = document.querySelector("input[name='status']:checked").value;
 
-  if(!nama) return alert("Pilih nama dulu!");
+  if(!nama){
+    alert("Pilih nama dulu!");
+    return;
+  }
 
   document.getElementById("loader").style.display="block";
   document.getElementById("msg").innerHTML="";
 
-  const canvas = document.getElementById("canvas");
-  canvas.width=320;
-  canvas.height=240;
-  canvas.getContext("2d").drawImage(video,0,0,320,240);
-  const foto = canvas.toDataURL("image/jpeg",0.6);
-
   try{
+
+    // Ambil foto dari kamera
+    const canvas = document.getElementById("canvas");
+    canvas.width  = 320;
+    canvas.height = 240;
+    canvas.getContext("2d").drawImage(video,0,0,320,240);
+
+    const foto = canvas.toDataURL("image/jpeg",0.6);
+
+    // Kirim ke Google Apps Script
     const res = await fetch(WEB_APP_URL,{
       method:"POST",
+      headers:{ "Content-Type":"application/json" },
       body:JSON.stringify({
-        namaStaff:nama,
-        imageBase64:foto,
-        status:status
+        namaStaff : nama,
+        imageBase64 : foto,
+        status : status
       })
     });
 
     const data = await res.json();
 
-    if(data.status==="BERHASIL"){
-      document.getElementById("msg").innerHTML=
-        `<span style="color:green">✅ BERHASIL<br>${data.nama}<br>Outlet: ${data.outlet}<br>Jam: ${data.jam}</span>`;
-      stream.getTracks().forEach(t=>t.stop());
-    }else{
-      document.getElementById("msg").innerHTML=
-        `<span style="color:red">${data}</span>`;
+    // ===========================
+    // BERHASIL
+    // ===========================
+    if(data.status === "BERHASIL"){
+
+      alert(
+        "ABSEN BERHASIL\n\n" +
+        "Nama   : " + data.nama + "\n" +
+        "Outlet : " + data.outlet + "\n" +
+        "Jam    : " + data.jam
+      );
+
+      document.getElementById("msg").innerHTML =
+        `<span style="color:green">
+          ✅ BERHASIL<br>
+          ${data.nama}<br>
+          Outlet: ${data.outlet}<br>
+          Jam: ${data.jam}
+        </span>`;
+
+      if(stream){
+        stream.getTracks().forEach(t => t.stop());
+      }
+
+    }
+    // ===========================
+    // GAGAL
+    // ===========================
+    else{
+
+      alert("ABSEN GAGAL\n\n" + (data.msg || "Terjadi kesalahan"));
+
+      document.getElementById("msg").innerHTML =
+        `<span style="color:red">
+          ${data.msg || "Terjadi kesalahan"}
+        </span>`;
     }
 
   }catch(err){
-    document.getElementById("msg").innerHTML=
+
+    alert("SERVER ERROR");
+
+    document.getElementById("msg").innerHTML =
       `<span style="color:red">Server error</span>`;
   }
 
@@ -216,4 +256,5 @@ async function kirim(){
 </script>
 
 </body>
+
 </html>
