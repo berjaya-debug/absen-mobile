@@ -1,2 +1,2 @@
 # absen-mobile
-absenssi mobile
+absensi mobile
