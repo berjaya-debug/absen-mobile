@@ -879,11 +879,13 @@ async function handleSubmit(e) {
 
     const res = await fetch(WEB_APP_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ namaStaff: nama, imageBase64: foto, status })
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify({ namaStaff: nama, imageBase64: foto, status }),
+      redirect: "follow"
     });
 
-    const data = await res.json();
+    const text = await res.text();
+    const data = JSON.parse(text);
 
     if (data.status === "BERHASIL") {
       document.getElementById("resNama").textContent   = data.nama;
@@ -898,7 +900,8 @@ async function handleSubmit(e) {
     }
 
   } catch(err) {
-    document.getElementById("errorMsg").textContent = "Tidak dapat terhubung ke server. Periksa koneksi internet Anda.";
+    const errMsg = "Error: " + err.message;
+    document.getElementById("errorMsg").textContent = errMsg;
     showModal("modalError");
   }
 
