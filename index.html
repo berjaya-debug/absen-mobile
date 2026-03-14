@@ -38,67 +38,53 @@ body {
   padding: 16px 12px 32px;
 }
 
-.bg-orb {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-  animation: orbFloat 8s ease-in-out infinite;
-}
+.bg-orb { position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;animation:orbFloat 8s ease-in-out infinite; }
 .bg-orb-1 { width:400px;height:400px;background:rgba(37,99,235,0.15);top:-100px;left:-100px;animation-delay:0s; }
 .bg-orb-2 { width:300px;height:300px;background:rgba(139,92,246,0.1);bottom:-80px;right:-80px;animation-delay:-4s; }
 .bg-orb-3 { width:200px;height:200px;background:rgba(16,185,129,0.08);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:-2s; }
-
-@keyframes orbFloat {
-  0%,100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-30px) scale(1.05); }
-}
+@keyframes orbFloat { 0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-30px) scale(1.05);} }
 
 body::before {
-  content:'';
-  position:fixed;
-  inset:0;
-  background-image:
-    linear-gradient(rgba(37,99,235,0.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(37,99,235,0.04) 1px,transparent 1px);
-  background-size:40px 40px;
-  pointer-events:none;
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(37,99,235,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,0.04) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;
 }
 
-/* === CARD === */
 .card {
-  background: linear-gradient(145deg,rgba(15,23,42,0.95),rgba(30,41,59,0.9));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 24px 20px 28px;
-  width: 100%;
-  max-width: 420px;
-  position: relative;
-  z-index: 10;
-  box-shadow: 0 0 0 1px rgba(37,99,235,0.1), 0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
-  animation: cardEnter 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+  background:linear-gradient(145deg,rgba(15,23,42,0.95),rgba(30,41,59,0.9));
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--border);border-radius:24px;padding:24px 20px 28px;
+  width:100%;max-width:420px;position:relative;z-index:10;
+  box-shadow:0 0 0 1px rgba(37,99,235,0.1),0 20px 50px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.05);
+  animation:cardEnter 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
 }
+@keyframes cardEnter { from{opacity:0;transform:translateY(24px) scale(0.97);}to{opacity:1;transform:translateY(0) scale(1);} }
 
-@keyframes cardEnter {
-  from { opacity:0; transform:translateY(24px) scale(0.97); }
-  to   { opacity:1; transform:translateY(0) scale(1); }
-}
-
-/* === HEADER === */
-.header { text-align:center; margin-bottom:20px; }
+.header { text-align:center;margin-bottom:20px; }
 .logo-ring { width:52px;height:52px;margin:0 auto 10px;position:relative; }
 .logo-ring svg { width:100%;height:100%;filter:drop-shadow(0 0 10px var(--blue-glow)); }
-
-.header h1 {
-  font-size:20px;font-weight:800;letter-spacing:-0.5px;
-  background:linear-gradient(135deg,#60a5fa,#a78bfa);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
+.header h1 { font-size:20px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
 .header p { font-size:11px;color:var(--text-muted);margin-top:3px;font-family:'JetBrains Mono',monospace;letter-spacing:1px; }
 
-/* === FORM === */
+.gps-bar {
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--surface2);border:1px solid var(--border);border-radius:10px;
+  padding:8px 12px;margin-bottom:14px;gap:8px;
+}
+.gps-status {
+  font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:600;
+  display:flex;align-items:center;gap:5px;flex:1;transition:color 0.3s;
+  color:#3b82f6;
+}
+.gps-status span { word-break:break-all; }
+.gps-refresh-btn {
+  background:none;border:1px solid var(--border);border-radius:6px;
+  color:var(--text-muted);font-size:16px;width:28px;height:28px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all 0.2s;padding:0;line-height:1;
+}
+.gps-refresh-btn:hover { border-color:var(--blue);color:#60a5fa; }
+
 .field { margin-bottom:12px; }
 .field-label { font-size:10px;font-weight:600;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;display:block; }
 
@@ -118,100 +104,59 @@ body::before {
 .status-option label {
   display:flex;align-items:center;justify-content:center;gap:7px;padding:11px 8px;
   border-radius:12px;border:1.5px solid var(--border);background:var(--surface2);
-  color:var(--text-muted);font-size:13px;font-weight:600;cursor:pointer;
-  transition:all 0.25s ease;user-select:none;
+  color:var(--text-muted);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.25s ease;user-select:none;
 }
 .status-option label .icon { font-size:14px; }
-.status-option input:checked + label {
-  border-color:var(--blue);background:rgba(37,99,235,0.15);color:#60a5fa;
-  box-shadow:0 0 0 3px rgba(37,99,235,0.15);
-}
+.status-option input:checked + label { border-color:var(--blue);background:rgba(37,99,235,0.15);color:#60a5fa;box-shadow:0 0 0 3px rgba(37,99,235,0.15); }
 
-/* === CAMERA AREA — tinggi tetap, tidak overflow === */
-.tap-hint {
-  font-size:11px;color:var(--text-muted);text-align:center;
-  margin-bottom:8px;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;
-}
+.tap-hint { font-size:11px;color:var(--text-muted);text-align:center;margin-bottom:8px;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px; }
 
 .camera-area {
-  position:relative;
-  border-radius:14px;
-  overflow:hidden;
-  margin-bottom:14px;
-  border:1.5px solid var(--border);
-  background:#000;
-  height: 200px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
+  position:relative;border-radius:14px;overflow:hidden;margin-bottom:14px;
+  border:1.5px solid var(--border);background:#000;height:200px;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
 }
-
-.camera-placeholder {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-  color:var(--text-muted);
-  pointer-events:none;
-}
+.camera-placeholder { display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text-muted);pointer-events:none; }
 .camera-placeholder .cam-icon { font-size:36px; }
 .camera-placeholder p { font-size:12px;font-weight:600;text-align:center;padding:0 12px; }
 .camera-placeholder small { font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.6; }
 
-.preview-img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
+.preview-img { width:100%;height:100%;object-fit:cover;display:block; }
 
-/* Sudut bracket — TANPA animasi */
 .preview-overlay { position:absolute;inset:0;pointer-events:none; }
-.preview-overlay::before,
-.preview-overlay::after {
-  content:'';position:absolute;width:20px;height:20px;
-  border-color:var(--blue);border-style:solid;opacity:0.7;
-}
+.preview-overlay::before,.preview-overlay::after { content:'';position:absolute;width:20px;height:20px;border-color:var(--blue);border-style:solid;opacity:0.7; }
 .preview-overlay::before { top:10px;left:10px;border-width:2px 0 0 2px;border-radius:3px 0 0 0; }
 .preview-overlay::after  { bottom:10px;right:10px;border-width:0 2px 2px 0;border-radius:0 0 3px 0; }
 
 .cam-badge {
-  position:absolute;top:8px;right:8px;
-  background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);
-  border:1px solid rgba(37,99,235,0.5);border-radius:20px;
-  padding:3px 9px;display:flex;align-items:center;gap:5px;
-  font-family:'JetBrains Mono',monospace;font-size:10px;color:#93c5fd;font-weight:600;
+  position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);
+  border:1px solid rgba(37,99,235,0.5);border-radius:20px;padding:3px 9px;
+  display:flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#93c5fd;font-weight:600;
 }
 .cam-badge-dot { width:6px;height:6px;border-radius:50%;background:var(--blue-light); }
 
 .retake-btn {
   position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
-  background:rgba(0,0,0,0.65);backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,0.2);border-radius:20px;
-  padding:5px 14px;color:#fff;font-size:12px;font-family:'Sora',sans-serif;font-weight:600;
-  cursor:pointer;display:none;white-space:nowrap;
+  background:rgba(0,0,0,0.65);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);
+  border-radius:20px;padding:5px 14px;color:#fff;font-size:12px;font-family:'Sora',sans-serif;
+  font-weight:600;cursor:pointer;display:none;white-space:nowrap;
 }
 
 #cameraInput { display:none; }
 
-/* === TOMBOL KIRIM === */
 .btn-submit {
-  width:100%;padding:15px;border:none;border-radius:14px;
-  font-family:'Sora',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.5px;
-  cursor:pointer;position:relative;overflow:hidden;
-  background:linear-gradient(135deg,var(--blue),#7c3aed);color:white;
-  transition:all 0.25s ease;box-shadow:0 4px 20px rgba(37,99,235,0.4);
+  width:100%;padding:15px;border:none;border-radius:14px;font-family:'Sora',sans-serif;
+  font-size:15px;font-weight:700;letter-spacing:0.5px;cursor:pointer;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--blue),#7c3aed);color:white;transition:all 0.25s ease;
+  box-shadow:0 4px 20px rgba(37,99,235,0.4);
 }
 .btn-submit:hover { transform:translateY(-1px);box-shadow:0 6px 24px rgba(37,99,235,0.5); }
 .btn-submit:active { transform:translateY(0); }
 .btn-submit:disabled { opacity:0.5;cursor:not-allowed;transform:none; }
-
 .btn-ripple { position:absolute;border-radius:50%;background:rgba(255,255,255,0.3);width:10px;height:10px;animation:ripple 0.6s ease-out forwards;pointer-events:none; }
 @keyframes ripple { to{transform:scale(25);opacity:0;} }
 .btn-inner { display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:1; }
 
-/* === LOADER === */
 .loader-wrap { display:none;text-align:center;margin-top:12px; }
 .loader-dots { display:inline-flex;gap:6px;align-items:center; }
 .loader-dots span { width:7px;height:7px;border-radius:50%;background:var(--blue-light);animation:dotBounce 1.2s ease-in-out infinite; }
@@ -220,62 +165,44 @@ body::before {
 @keyframes dotBounce { 0%,80%,100%{transform:scale(0.7);opacity:0.5;}40%{transform:scale(1.2);opacity:1;} }
 .loader-text { font-size:11px;color:var(--text-muted);margin-top:6px;font-family:'JetBrains Mono',monospace; }
 
-/* === MODALS === */
+/* MODALS */
 .modal-backdrop {
   position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);
   z-index:100;display:flex;align-items:center;justify-content:center;
   opacity:0;pointer-events:none;transition:opacity 0.3s ease;padding:20px;
 }
 .modal-backdrop.show { opacity:1;pointer-events:all; }
-
 .modal {
-  background:linear-gradient(145deg,#0f172a,#1e293b);border:1px solid var(--border);
-  border-radius:22px;padding:28px 24px;width:100%;max-width:340px;
-  position:relative;transform:scale(0.85) translateY(16px);
-  transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  background:linear-gradient(145deg,#0f172a,#1e293b);border:1px solid var(--border);border-radius:22px;
+  padding:28px 24px;width:100%;max-width:340px;position:relative;
+  transform:scale(0.85) translateY(16px);transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
   box-shadow:0 30px 60px rgba(0,0,0,0.5);text-align:center;
 }
 .modal-backdrop.show .modal { transform:scale(1) translateY(0); }
-
-.modal-icon {
-  width:64px;height:64px;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;margin:0 auto 16px;font-size:28px;
-  animation:iconPop 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.15s both;
-}
+.modal-icon { width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:28px;animation:iconPop 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.15s both; }
 @keyframes iconPop { from{transform:scale(0) rotate(-20deg);opacity:0;}to{transform:scale(1) rotate(0deg);opacity:1;} }
-
 .modal-icon.success { background:rgba(16,185,129,0.15);border:2px solid rgba(16,185,129,0.4); }
 .modal-icon.error   { background:rgba(239,68,68,0.15);border:2px solid rgba(239,68,68,0.4); }
 .modal-icon.warning { background:rgba(245,158,11,0.15);border:2px solid rgba(245,158,11,0.4); }
-
 .modal-title { font-size:18px;font-weight:800;color:var(--text);margin-bottom:6px; }
 .modal-subtitle { font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.6; }
-
 .modal-info { background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:16px;text-align:left; }
 .modal-info-row { display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:13px;border-bottom:1px solid var(--border); }
 .modal-info-row:last-child { border-bottom:none; }
 .modal-info-row .key { color:var(--text-muted);font-weight:500; }
 .modal-info-row .val { color:var(--text);font-weight:600;font-family:'JetBrains Mono',monospace;font-size:12px; }
-
 .modal-btn { width:100%;padding:13px;border:none;border-radius:12px;font-family:'Sora',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.25s ease; }
 .modal-btn.success-btn { background:linear-gradient(135deg,#10b981,#059669);color:white;box-shadow:0 4px 16px rgba(16,185,129,0.3); }
 .modal-btn.error-btn   { background:linear-gradient(135deg,#ef4444,#dc2626);color:white; }
 .modal-btn.warning-btn { background:linear-gradient(135deg,#f59e0b,#d97706);color:white; }
 .modal-btn:hover { filter:brightness(1.1); }
 
-/* Confetti */
 .confetti-wrap { position:fixed;inset:0;pointer-events:none;z-index:99;overflow:hidden; }
 .confetti-piece { position:absolute;opacity:0;animation:confettiFall 2s ease-in forwards; }
 @keyframes confettiFall { 0%{opacity:1;transform:translateY(-20px) rotate(0deg);}100%{opacity:0;transform:translateY(110vh) rotate(720deg);} }
 
-/* Toast */
 .toast-container { position:fixed;top:16px;right:12px;z-index:200;display:flex;flex-direction:column;gap:8px;pointer-events:none;max-width:calc(100vw - 24px); }
-.toast {
-  background:var(--surface2);border:1px solid var(--border);border-radius:10px;
-  padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text);
-  box-shadow:0 6px 20px rgba(0,0,0,0.4);pointer-events:all;
-  animation:toastSlide 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
-}
+.toast { background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text);box-shadow:0 6px 20px rgba(0,0,0,0.4);pointer-events:all;animation:toastSlide 0.35s cubic-bezier(0.34,1.56,0.64,1) both; }
 @keyframes toastSlide { from{transform:translateX(110%);opacity:0;}to{transform:translateX(0);opacity:1;} }
 .toast.exit { animation:toastExit 0.3s ease forwards; }
 @keyframes toastExit { to{transform:translateX(110%);opacity:0;} }
@@ -287,15 +214,12 @@ body::before {
 <div class="bg-orb bg-orb-1"></div>
 <div class="bg-orb bg-orb-2"></div>
 <div class="bg-orb bg-orb-3"></div>
-
 <div class="confetti-wrap" id="confettiWrap"></div>
 <div class="toast-container" id="toastContainer"></div>
-
 <canvas id="canvas" style="display:none;"></canvas>
 <input type="file" id="cameraInput" accept="image/*" capture="user">
 
 <div class="card">
-
   <div class="header">
     <div class="logo-ring">
       <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -313,7 +237,13 @@ body::before {
       </svg>
     </div>
     <h1>ABSENSI MOBILE</h1>
-      </div>
+  </div>
+
+  <!-- GPS Status Bar -->
+  <div class="gps-bar" id="gpsBar">
+    <div class="gps-status" id="gpsStatus">🔄 <span>Mendeteksi lokasi…</span></div>
+    <button class="gps-refresh-btn" onclick="refreshGPS()" title="Refresh GPS">↺</button>
+  </div>
 
   <!-- Nama -->
   <div class="field">
@@ -342,9 +272,8 @@ body::before {
     </div>
   </div>
 
-  <!-- Hint & Camera -->
+  <!-- Kamera -->
   <p class="tap-hint" id="tapHint">📷 Ketuk area foto untuk membuka kamera</p>
-
   <div class="camera-area" id="cameraArea" onclick="openCamera()">
     <div class="camera-placeholder" id="camPlaceholder">
       <div class="cam-icon">📷</div>
@@ -362,7 +291,7 @@ body::before {
   <button class="btn-submit" id="btnSubmit" onclick="handleSubmit(event)">
     <div class="btn-inner">
       <span>📤</span>
-      <span>KIRIM ABSENSI</span>
+      <span id="btnText">KIRIM ABSENSI</span>
     </div>
   </button>
 
@@ -370,7 +299,6 @@ body::before {
     <div class="loader-dots"><span></span><span></span><span></span></div>
     <div class="loader-text" id="loaderText">Mengirim data…</div>
   </div>
-
 </div>
 
 <!-- SUCCESS MODAL -->
@@ -380,18 +308,9 @@ body::before {
     <div class="modal-title">Absensi Berhasil!</div>
     <div class="modal-subtitle">Data kehadiran Anda telah tercatat.</div>
     <div class="modal-info">
-      <div class="modal-info-row">
-        <span class="key">👤 Nama</span>
-        <span class="val" id="resNama">—</span>
-      </div>
-      <div class="modal-info-row">
-        <span class="key">🏪 Outlet</span>
-        <span class="val" id="resOutlet">—</span>
-      </div>
-      <div class="modal-info-row">
-        <span class="key">🕐 Jam</span>
-        <span class="val" id="resJam">—</span>
-      </div>
+      <div class="modal-info-row"><span class="key">👤 Nama</span><span class="val" id="resNama">—</span></div>
+      <div class="modal-info-row"><span class="key">🏪 Outlet</span><span class="val" id="resOutlet">—</span></div>
+      <div class="modal-info-row"><span class="key">🕐 Jam</span><span class="val" id="resJam">—</span></div>
     </div>
     <button class="modal-btn success-btn" onclick="tutupAplikasi()">Tutup</button>
   </div>
@@ -418,34 +337,130 @@ body::before {
 </div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwX2DO0gWjL7g__xe9zZt3oQEEOH-MqOOpxCZo_1uA5u2O5KyNfFXqmn1lNCfaSCot-_w/exec";
+// =============================================
+// KONFIGURASI — ganti URL setelah deploy ulang
+// =============================================
+var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwX2DO0gWjL7g__xe9zZt3oQEEOH-MqOOpxCZo_1uA5u2O5KyNfFXqmn1lNCfaSCot-_w/exec";
 
-let capturedPhotoBase64 = null;
-let userLocation = { text: "Lokasi tidak tersedia" };
+// =============================================
+// STATE
+// =============================================
+var capturedPhotoBase64 = null;
+var userLocation = {
+  text    : "Mendeteksi lokasi…",
+  lat     : null,
+  lng     : null,
+  accuracy: null,
+  ready   : false
+};
+var isSending   = false;
+var gpsWatchId  = null;
+var gpsTryCount = 0;
+var GPS_MAX_TRY = 5;    // maks percobaan ulang
+var GPS_ACCURACY_TARGET = 80; // meter — dianggap cukup akurat
 
-// Ambil GPS saat load
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(
-    pos => {
-      userLocation.text = `${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}`;
-      showToast("📍", "Lokasi berhasil didapat", "success");
-    },
-    () => { showToast("⚠️", "Lokasi tidak tersedia", "info"); },
-    { timeout: 8000, maximumAge: 60000 }
-  );
+// =============================================
+// GPS — sistem robust dengan retry & watchPosition
+// =============================================
+function gpsSetStatus(icon, text, color) {
+  var el = document.getElementById("gpsStatus");
+  if (!el) return;
+  el.innerHTML = icon + " <span>" + text + "</span>";
+  el.style.color = color;
 }
 
+function gpsOnSuccess(pos) {
+  var lat = pos.coords.latitude;
+  var lng = pos.coords.longitude;
+  var acc = Math.round(pos.coords.accuracy);
+
+  userLocation.lat      = lat;
+  userLocation.lng      = lng;
+  userLocation.accuracy = acc;
+  userLocation.text     = lat.toFixed(6) + ", " + lng.toFixed(6);
+  userLocation.ready    = true;
+
+  if (acc <= GPS_ACCURACY_TARGET) {
+    // Akurasi bagus — hentikan watch
+    if (gpsWatchId !== null) {
+      navigator.geolocation.clearWatch(gpsWatchId);
+      gpsWatchId = null;
+    }
+    gpsSetStatus("📍", "Lokasi terkunci ±" + acc + "m", "#10b981");
+    showToast("📍", "GPS terkunci ±" + acc + "m", "success");
+  } else {
+    // Masih menyempurnakan akurasi
+    gpsSetStatus("🔄", "Menyempurnakan lokasi ±" + acc + "m…", "#f59e0b");
+  }
+}
+
+function gpsOnError(err) {
+  gpsTryCount++;
+  var pesanError = {
+    1: "Izin GPS ditolak. Aktifkan di pengaturan browser.",
+    2: "Sinyal GPS lemah. Pindah ke area terbuka.",
+    3: "GPS timeout. Mencoba ulang…"
+  }[err.code] || "GPS gagal.";
+
+  if (gpsTryCount < GPS_MAX_TRY && err.code !== 1) {
+    // Retry dengan timeout lebih panjang
+    gpsSetStatus("⚠️", "Mencoba ulang GPS (" + gpsTryCount + "/" + GPS_MAX_TRY + ")…", "#f59e0b");
+    setTimeout(function() { startGPS(); }, 3000);
+  } else {
+    userLocation.text  = "Lokasi tidak tersedia";
+    userLocation.ready = true; // tetap boleh absen, lokasi jadi "tidak tersedia"
+    gpsSetStatus("❌", pesanError, "#ef4444");
+    showToast("⚠️", pesanError, "info");
+  }
+}
+
+function startGPS() {
+  if (!navigator.geolocation) {
+    gpsSetStatus("❌", "GPS tidak didukung perangkat ini", "#ef4444");
+    userLocation.ready = true;
+    return;
+  }
+
+  // Coba getCurrentPosition dulu (cepat)
+  navigator.geolocation.getCurrentPosition(gpsOnSuccess, function(err) {
+    // Kalau gagal, pakai watchPosition (lebih sabar, terus coba)
+    if (gpsWatchId !== null) navigator.geolocation.clearWatch(gpsWatchId);
+    gpsWatchId = navigator.geolocation.watchPosition(
+      gpsOnSuccess,
+      gpsOnError,
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 }
+    );
+  }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 });
+}
+
+// Mulai GPS saat halaman dibuka
+gpsSetStatus("🔄", "Mendeteksi lokasi…", "#3b82f6");
+startGPS();
+
+// Tombol refresh GPS manual
+function refreshGPS() {
+  gpsTryCount = 0;
+  if (gpsWatchId !== null) { navigator.geolocation.clearWatch(gpsWatchId); gpsWatchId = null; }
+  userLocation.ready = false;
+  gpsSetStatus("🔄", "Memuat ulang GPS…", "#3b82f6");
+  startGPS();
+  showToast("🔄", "GPS dimuat ulang", "info");
+}
+
+// =============================================
+// KAMERA
+// =============================================
 function openCamera() {
   if (capturedPhotoBase64 !== null) return;
   document.getElementById("cameraInput").click();
 }
 
 document.getElementById("cameraInput").addEventListener("change", function(e) {
-  const file = e.target.files[0];
+  var file = e.target.files[0];
   if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    addWatermark(ev.target.result, result => {
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    addWatermarkAndCompress(ev.target.result, function(result) {
       capturedPhotoBase64 = result;
       showPreview(result);
       showToast("✅", "Foto berhasil diambil", "success");
@@ -455,42 +470,57 @@ document.getElementById("cameraInput").addEventListener("change", function(e) {
   this.value = "";
 });
 
-function addWatermark(base64Src, callback) {
-  const img = new Image();
+// Tambah watermark + KOMPRES foto (max 800px, quality 0.65)
+// Ini penting agar payload tidak terlalu besar dan tidak timeout
+function addWatermarkAndCompress(base64Src, callback) {
+  var img = new Image();
   img.onload = function() {
-    const canvas = document.getElementById("canvas");
-    const W = img.width, H = img.height;
-    canvas.width = W; canvas.height = H;
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
+    var canvas = document.getElementById("canvas");
 
-    const barH = Math.round(H * 0.11);
-    ctx.fillStyle = "rgba(0,0,0,0.58)";
+    // Kompres: max lebar/tinggi 800px
+    var maxSize = 800;
+    var W = img.width;
+    var H = img.height;
+    if (W > maxSize || H > maxSize) {
+      if (W > H) { H = Math.round(H * maxSize / W); W = maxSize; }
+      else       { W = Math.round(W * maxSize / H); H = maxSize; }
+    }
+
+    canvas.width  = W;
+    canvas.height = H;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, W, H);
+
+    // Watermark bar bawah
+    var barH = Math.round(H * 0.12);
+    ctx.fillStyle = "rgba(0,0,0,0.60)";
     ctx.fillRect(0, H - barH, W, barH);
 
-    const fs = Math.round(barH * 0.32);
-    const pad = Math.round(W * 0.03);
-    const now = new Date();
-    const jam = now.toLocaleTimeString("id-ID", { hour:"2-digit", minute:"2-digit", second:"2-digit" });
-    const tgl = now.toLocaleDateString("id-ID", { day:"2-digit", month:"long", year:"numeric" });
+    var fs  = Math.round(barH * 0.32);
+    var pad = Math.round(W * 0.03);
+    var now = new Date();
+    var jam = now.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    var tgl = now.toLocaleDateString("id-ID", { day: "2-digit", month: "long", year: "numeric" });
 
     ctx.textBaseline = "middle";
-    ctx.fillStyle = "#ffffff";
-    ctx.font = `bold ${fs}px Arial, sans-serif`;
-    ctx.fillText(`🕐 ${tgl}  ${jam}`, pad, H - barH + barH * 0.3);
-    ctx.font = `${Math.round(fs * 0.85)}px Arial, sans-serif`;
-    ctx.fillStyle = "rgba(255,255,255,0.85)";
-    ctx.fillText(`📍 ${userLocation.text}`, pad, H - barH + barH * 0.72);
+    ctx.fillStyle    = "#ffffff";
+    ctx.font         = "bold " + fs + "px Arial, sans-serif";
+    ctx.fillText("🕐 " + tgl + "  " + jam, pad, H - barH + barH * 0.3);
+    ctx.font         = Math.round(fs * 0.85) + "px Arial, sans-serif";
+    ctx.fillStyle    = "rgba(255,255,255,0.85)";
+    ctx.fillText("📍 " + userLocation.text, pad, H - barH + barH * 0.72);
 
-    callback(canvas.toDataURL("image/jpeg", 0.82));
+    // Quality 0.65 — cukup jelas, ukuran kecil
+    callback(canvas.toDataURL("image/jpeg", 0.65));
   };
   img.src = base64Src;
 }
 
 function showPreview(base64) {
   document.getElementById("camPlaceholder").style.display = "none";
-  const imgEl = document.getElementById("previewImg");
-  imgEl.src = base64; imgEl.style.display = "block";
+  var imgEl = document.getElementById("previewImg");
+  imgEl.src = base64;
+  imgEl.style.display = "block";
   document.getElementById("previewOverlay").style.display = "block";
   document.getElementById("camBadge").style.display = "flex";
   document.getElementById("retakeBtn").style.display = "block";
@@ -500,7 +530,7 @@ function showPreview(base64) {
 function retakePhoto(e) {
   e.stopPropagation();
   capturedPhotoBase64 = null;
-  const imgEl = document.getElementById("previewImg");
+  var imgEl = document.getElementById("previewImg");
   imgEl.style.display = "none"; imgEl.src = "";
   document.getElementById("previewOverlay").style.display = "none";
   document.getElementById("camBadge").style.display = "none";
@@ -511,109 +541,176 @@ function retakePhoto(e) {
 }
 
 function onNamaChange(sel) {
-  if (sel.value) showToast("👤", `Selamat datang, ${sel.value}!`, "info");
+  if (sel.value) showToast("👤", "Selamat datang, " + sel.value + "!", "info");
 }
 
-document.querySelectorAll("input[name='status']").forEach(r => {
-  r.addEventListener("change", () => {
+document.querySelectorAll("input[name='status']").forEach(function(r) {
+  r.addEventListener("change", function() {
     showToast("🔄", r.value === "HADIR" ? "Mode: CHECK-IN 🟢" : "Mode: CHECK-OUT 🔴", "info");
   });
 });
 
+// =============================================
+// SUBMIT — fetch yang BENAR untuk Google Apps Script
+// =============================================
 async function handleSubmit(e) {
-  const btn = document.getElementById("btnSubmit");
-  const ripple = document.createElement("div");
+  if (isSending) return; // cegah double-submit
+
+  // Ripple effect
+  var btn = document.getElementById("btnSubmit");
+  var ripple = document.createElement("div");
   ripple.className = "btn-ripple";
-  const rect = btn.getBoundingClientRect();
+  var rect = btn.getBoundingClientRect();
   ripple.style.left = (e.clientX - rect.left - 5) + "px";
   ripple.style.top  = (e.clientY - rect.top  - 5) + "px";
   btn.appendChild(ripple);
-  setTimeout(() => ripple.remove(), 700);
+  setTimeout(function() { ripple.remove(); }, 700);
 
-  const nama   = document.getElementById("nama").value;
-  const status = document.querySelector("input[name='status']:checked").value;
+  var nama   = document.getElementById("nama").value;
+  var status = document.querySelector("input[name='status']:checked").value;
 
-  if (!nama) { showWarning("Silakan pilih nama Anda terlebih dahulu."); return; }
+  if (!nama)                { showWarning("Silakan pilih nama Anda terlebih dahulu."); return; }
   if (!capturedPhotoBase64) { showWarning("Silakan ambil foto terlebih dahulu dengan mengetuk area foto di atas."); return; }
 
   setLoading(true);
-  try {
-    setLoaderText("Mengirim data ke server…");
-    const res = await fetch(WEB_APP_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ namaStaff: nama, imageBase64: capturedPhotoBase64, status })
-    });
-    const data = await res.json();
-    if (data.status === "BERHASIL") {
-      document.getElementById("resNama").textContent   = data.nama;
-      document.getElementById("resOutlet").textContent = data.outlet;
-      document.getElementById("resJam").textContent    = data.jam;
-      showModal("modalSuccess");
-      launchConfetti();
-    } else {
-      document.getElementById("errorMsg").textContent = data.msg || "Terjadi kesalahan.";
-      showModal("modalError");
+
+  var payload = JSON.stringify({
+    namaStaff   : nama,
+    imageBase64 : capturedPhotoBase64,
+    status      : status
+  });
+
+  // ─────────────────────────────────────────
+  // KUNCI PERBAIKAN:
+  //  1. TIDAK pakai header Content-Type (hindari CORS preflight)
+  //  2. redirect: "follow" (GAS selalu redirect 302)
+  //  3. Retry otomatis 1x kalau gagal
+  // ─────────────────────────────────────────
+  var berhasil = false;
+  var lastError = "";
+
+  for (var attempt = 1; attempt <= 2; attempt++) {
+    try {
+      setLoaderText(attempt === 1 ? "Mengirim data…" : "Mencoba ulang… (" + attempt + "/2)");
+
+      var res = await fetch(WEB_APP_URL, {
+        method   : "POST",
+        redirect : "follow",   // WAJIB untuk GAS
+        body     : payload
+        // JANGAN tambahkan headers Content-Type
+        // GAS tidak support CORS preflight
+      });
+
+      // GAS kadang return status bukan 200 tapi data tetap ada
+      var rawText = await res.text();
+
+      var data;
+      try {
+        data = JSON.parse(rawText);
+      } catch (parseErr) {
+        throw new Error("Response tidak valid: " + rawText.substring(0, 100));
+      }
+
+      if (data.status === "BERHASIL") {
+        document.getElementById("resNama").textContent   = data.nama   || nama;
+        document.getElementById("resOutlet").textContent = data.outlet || "-";
+        document.getElementById("resJam").textContent    = data.jam    || "-";
+        showModal("modalSuccess");
+        launchConfetti();
+        berhasil = true;
+        break;
+
+      } else if (data.status === "GAGAL") {
+        // Sudah absen / validasi gagal — tidak perlu retry
+        showWarning(data.msg || "Absensi ditolak oleh server.");
+        berhasil = true; // bukan network error, jadi stop retry
+        break;
+
+      } else {
+        // status ERROR dari GAS
+        lastError = data.msg || "Terjadi kesalahan di server.";
+        if (attempt === 1) {
+          await new Promise(function(r) { setTimeout(r, 2000); }); // tunggu 2 detik lalu retry
+        }
+      }
+
+    } catch (fetchErr) {
+      lastError = fetchErr.message || "Tidak dapat terhubung ke server.";
+      if (attempt === 1) {
+        await new Promise(function(r) { setTimeout(r, 2000); }); // tunggu 2 detik lalu retry
+      }
     }
-  } catch(err) {
-    document.getElementById("errorMsg").textContent = "Tidak dapat terhubung ke server. Periksa koneksi internet.";
+  }
+
+  if (!berhasil) {
+    document.getElementById("errorMsg").textContent =
+      lastError + "\n\nPastikan koneksi internet aktif dan coba beberapa saat lagi.";
     showModal("modalError");
   }
+
   setLoading(false);
 }
 
+// =============================================
+// UI HELPERS
+// =============================================
 function tutupAplikasi() {
   closeModal("modalSuccess");
-  setTimeout(() => {
+  setTimeout(function() {
     if (history.length > 1) history.back();
     else window.close();
   }, 300);
 }
 
 function setLoading(on) {
-  const btn = document.getElementById("btnSubmit");
+  isSending = on;
+  var btn = document.getElementById("btnSubmit");
   document.getElementById("loaderWrap").style.display = on ? "block" : "none";
   btn.disabled = on;
-  btn.querySelector(".btn-inner span:last-child").textContent = on ? "Memproses…" : "KIRIM ABSENSI";
+  document.getElementById("btnText").textContent = on ? "Memproses…" : "KIRIM ABSENSI";
 }
+
 function setLoaderText(t) { document.getElementById("loaderText").textContent = t; }
-function showModal(id)  { document.getElementById(id).classList.add("show"); }
-function closeModal(id) { document.getElementById(id).classList.remove("show"); }
+function showModal(id)    { document.getElementById(id).classList.add("show"); }
+function closeModal(id)   { document.getElementById(id).classList.remove("show"); }
 function showWarning(msg) { document.getElementById("warningMsg").textContent = msg; showModal("modalWarning"); }
 
-document.querySelectorAll(".modal-backdrop").forEach(el => {
-  el.addEventListener("click", e => { if (e.target === el) closeModal(el.id); });
+document.querySelectorAll(".modal-backdrop").forEach(function(el) {
+  el.addEventListener("click", function(e) { if (e.target === el) closeModal(el.id); });
+});
+
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") document.querySelectorAll(".modal-backdrop.show").forEach(function(el) { el.classList.remove("show"); });
 });
 
 function showToast(icon, msg, type) {
-  const c = document.getElementById("toastContainer");
-  const t = document.createElement("div");
+  var c = document.getElementById("toastContainer");
+  var t = document.createElement("div");
   t.className = "toast";
-  t.innerHTML = `<span class="toast-icon">${icon}</span><span class="toast-msg">${msg}</span>`;
-  t.style.borderLeft = `3px solid ${{ success:"#10b981", error:"#ef4444", info:"#3b82f6" }[type] || "#3b82f6"}`;
+  t.innerHTML = '<span class="toast-icon">' + icon + '</span><span class="toast-msg">' + msg + '</span>';
+  var colors = { success: "#10b981", error: "#ef4444", info: "#3b82f6" };
+  t.style.borderLeft = "3px solid " + (colors[type] || "#3b82f6");
   c.appendChild(t);
-  setTimeout(() => { t.classList.add("exit"); setTimeout(() => t.remove(), 350); }, 3000);
+  setTimeout(function() { t.classList.add("exit"); setTimeout(function() { t.remove(); }, 350); }, 3000);
 }
 
 function launchConfetti() {
-  const wrap = document.getElementById("confettiWrap");
-  const colors = ["#60a5fa","#a78bfa","#34d399","#fbbf24","#f87171","#e879f9"];
-  const shapes = ["◆","★","●","■","▲"];
-  for (let i = 0; i < 50; i++) {
-    setTimeout(() => {
-      const el = document.createElement("div");
-      el.className = "confetti-piece";
-      el.textContent = shapes[Math.floor(Math.random() * shapes.length)];
-      el.style.cssText = `left:${Math.random()*100}%;top:-20px;color:${colors[Math.floor(Math.random()*colors.length)]};font-size:${8+Math.random()*10}px;animation-duration:${1.5+Math.random()*1.5}s;animation-delay:${Math.random()*0.4}s;`;
-      wrap.appendChild(el);
-      setTimeout(() => el.remove(), 3000);
-    }, i * 30);
+  var wrap = document.getElementById("confettiWrap");
+  var colors = ["#60a5fa","#a78bfa","#34d399","#fbbf24","#f87171","#e879f9"];
+  var shapes = ["◆","★","●","■","▲"];
+  for (var i = 0; i < 50; i++) {
+    (function(idx) {
+      setTimeout(function() {
+        var el = document.createElement("div");
+        el.className = "confetti-piece";
+        el.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+        el.style.cssText = "left:" + (Math.random()*100) + "%;top:-20px;color:" + colors[Math.floor(Math.random()*colors.length)] + ";font-size:" + (8+Math.random()*10) + "px;animation-duration:" + (1.5+Math.random()*1.5) + "s;animation-delay:" + (Math.random()*0.4) + "s;";
+        wrap.appendChild(el);
+        setTimeout(function() { el.remove(); }, 3000);
+      }, idx * 30);
+    })(i);
   }
 }
-
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape") document.querySelectorAll(".modal-backdrop.show").forEach(el => el.classList.remove("show"));
-});
 </script>
 </body>
 </html>
